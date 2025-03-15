@@ -26,8 +26,7 @@ backend/
 │       └── data_loader.py       # Data loading utilities
 ├── tests/
 │   └── test_population.py       # API tests
-├── data/
-│   └── population.tsv           # Data source file
+├── population.tsv               # Data source file
 └── requirements.txt             # Python dependencies
 
 ---
