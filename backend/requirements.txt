@@ -2,5 +2,6 @@ fastapi
 uvicorn
 pandas
 pydantic
+pydantic-settings
 python-dotenv
 pytest
