@@ -4,7 +4,7 @@ from app.main import app
 client = TestClient(app)
 
 def test_get_population_all():
-    """Test retrieving all countries including the aggregated 'ALL' data."""
+    """Test retrieving all countries."""
     response = client.get("/population")
     
     assert response.status_code == 200
@@ -12,7 +12,6 @@ def test_get_population_all():
     
     assert "years" in data
     assert "countries" in data
-    assert any(c["code"] == "ALL" for c in data["countries"])  # Ensure 'ALL' data is present
 
 def test_get_population_specific_country():
     """Test retrieving population data for a specific country (USA)."""
@@ -26,11 +25,15 @@ def test_get_population_specific_country():
     assert any(c["code"] == "USA" for c in data["countries"])  # Ensure USA is in the response
 
 def test_get_population_invalid_country():
-    """Test request with an invalid country code (should return 400 Bad Request)."""
+    """Test request with an invalid country code (should return 200 with empty countries array)."""
     response = client.get("/population?countries=INVALID")
     
-    assert response.status_code == 400
-    assert "detail" in response.json()
+    assert response.status_code == 200
+    json_data = response.json()
+
+    assert "years" in json_data
+    assert "countries" in json_data
+    assert json_data["countries"] == [] 
 
 def test_get_population_start_greater_than_end():
     """Test request where start_year is greater than end_year (should return 400 Bad Request)."""

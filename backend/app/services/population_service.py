@@ -17,20 +17,13 @@ def get_population_data(countries: List[str], start_year: int, end_year: int) ->
     years = get_years_range(start_year, end_year)
     country_groups = []
 
-    # Aggregate "World" data
-    if not countries or "ALL" in countries:
-        total_population = [DATA_DF[str(year)].sum() if str(year) in DATA_DF.columns else None for year in years]
-        country_groups.append({
-            "code": "ALL",
-            "name": "World",
-            "data": total_population
-        })
-
-    # Individual country data
     filtered_df = DATA_DF if not countries else DATA_DF[DATA_DF["Country Code"].isin(countries)]
 
-    if filtered_df.empty and "ALL" not in countries:
-        raise ValueError("No matching countries found")
+    if filtered_df.empty:
+        return {
+            "years": years,
+            "countries": []
+        }
 
     for row in filtered_df.to_dict(orient="records"):
         data = [row.get(str(year), None) for year in years]

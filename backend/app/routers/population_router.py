@@ -9,7 +9,7 @@ router = APIRouter(tags=["population"])
 async def get_population(
     countries: Optional[str] = Query(
         None, 
-        description="Comma-separated country codes (e.g., DEU,USA). Use 'ALL' for aggregated data."
+        description="Comma-separated country codes (e.g., DEU,USA). Use 'WLD' for total population."
     ),
     start_year: int = Query(
         1960, 
@@ -32,7 +32,5 @@ async def get_population(
     try:
         data = population_service.get_population_data(country_list, start_year, end_year)
         return data
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal Server Error")
