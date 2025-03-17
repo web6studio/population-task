@@ -1,6 +1,6 @@
 export const transformPopulationData = (data?: Population): TransformedPopulationData[] => {
   return data?.years.map((year, index) => {
-    let transformed: TransformedPopulationData = { year };
+    const transformed: TransformedPopulationData = { year };
     data.countries.forEach((country) => {
       transformed[country.code] = country.data[index] ?? 0;
     });
