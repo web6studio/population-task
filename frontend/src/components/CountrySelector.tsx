@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState, useRef } from "react";
 import { Search, X } from "lucide-react";
 
 type Props = {
@@ -9,21 +9,33 @@ type Props = {
 const CountrySelector: FunctionComponent<Props> = ({ countries, onChange }) => {
   const [selected, setSelected] = useState<string[]>(["WLD"]);
   const [searchTerm, setSearchTerm] = useState("");
+  const lastSelectedIndex = useRef<number | null>(null); // Used for a "Shift" select
 
   const sortedCountries = [{ code: "WLD", name: "World" }, ...countries.filter((c) => c.code !== "WLD")];
 
-  const handleSelect = (countryCode: string) => {
-    const newSelected = selected.includes(countryCode)
-      ? selected.filter((c) => c !== countryCode)
-      : [...selected, countryCode];
-  
+  const handleSelect = (event: React.MouseEvent<HTMLInputElement>, index: number, countryCode: string) => {
+    const isChecked = selected.includes(countryCode);
+    let newSelected = [...selected];
+
+    if (event.shiftKey && lastSelectedIndex.current !== null) {
+      const range = [lastSelectedIndex.current, index].sort((a, b) => a - b);
+      const codesInRange = sortedCountries.slice(range[0], range[1] + 1).map((country) => country.code);
+      newSelected = isChecked
+        ? newSelected.filter((code) => !codesInRange.includes(code)) // Unselect range
+        : [...new Set([...newSelected, ...codesInRange])]; // Select range
+    } else {
+      newSelected = isChecked ? newSelected.filter((c) => c !== countryCode) : [...newSelected, countryCode];
+    }
+
+    lastSelectedIndex.current = index;
     setSelected(newSelected);
     onChange(newSelected);
   };
-  
+
   const resetSelection = () => {
     setSelected(["WLD"]);
     onChange(["WLD"]);
+    lastSelectedIndex.current = null;
   };
 
   const clearSearch = () => setSearchTerm("");
@@ -65,7 +77,7 @@ const CountrySelector: FunctionComponent<Props> = ({ countries, onChange }) => {
 
       {/* Scrollable Country List */}
       <div className="flex-1 overflow-y-auto bg-gray-50 p-4 select-none">
-        {filteredCountries.map((country) => (
+        {filteredCountries.map((country, index) => (
           <label
             key={country.code}
             className="flex items-center gap-3 cursor-pointer hover:bg-gray-200 p-2 rounded transition"
@@ -73,7 +85,7 @@ const CountrySelector: FunctionComponent<Props> = ({ countries, onChange }) => {
             <input
               type="checkbox"
               checked={selected.includes(country.code)}
-              onChange={() => handleSelect(country.code)}
+              onClick={(e) => handleSelect(e, index, country.code)}
               className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded"
             />
             <span className="text-md font-medium">{country.name}</span>
