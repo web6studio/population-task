@@ -3,10 +3,10 @@
 
 @layer theme {
   :root {
-    --color-primary: #1976d2; /* Акцент (Material Blue) */
-    --color-text: #121212; /* Черный текст */
-    --color-bg: #ffffff; /* Белый фон */
-    --color-border: #e0e0e0; /* Легкий серый для границ */
+    --color-primary: #3b82f6;
+    --color-text: #2D2D2D;
+    --color-bg: #ffffff;
+    --color-border: #e0e0e0;
     --border-radius: 8px;
   }
 }
@@ -21,7 +21,6 @@
   }
 }
 
-/* Hide arrows in number inputs */
 .hide-arrows::-webkit-inner-spin-button,
 .hide-arrows::-webkit-outer-spin-button {
   -webkit-appearance: none;

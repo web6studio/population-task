@@ -17,7 +17,7 @@ const RangeSlider: FunctionComponent<Props> = ({ min, max, value, onChange }) =>
         disabled
         value={value[0]}
         onChange={(e) => onChange([Math.max(min, Number(e.target.value)), value[1]])}
-        className="w-20 px-3 py-2 border border-gray-300 rounded-md text-center text-sm outline-none
+        className="w-20 px-3 py-2 border border-gray-300 rounded-sm text-center text-sm outline-none
                    focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all
                    hide-arrows"
       />
@@ -73,7 +73,7 @@ const RangeSlider: FunctionComponent<Props> = ({ min, max, value, onChange }) =>
         value={value[1]}
         disabled
         onChange={(e) => onChange([value[0], Math.min(max, Number(e.target.value))])}
-        className="w-20 px-3 py-2 border border-gray-300 rounded-md text-center text-sm outline-none
+        className="w-20 px-3 py-2 border border-gray-300 rounded-sm text-center text-sm outline-none
                    focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all
                    hide-arrows"
       />

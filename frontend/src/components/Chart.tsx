@@ -51,18 +51,18 @@ const PopulationChart: FunctionComponent<Props> = ({ data, onPointClick }) => {
 
         <XAxis 
           dataKey="year" 
-          tick={{ fontSize: 14, fill: "#121212", dy: 10 }}
-          stroke="#121212"
-          axisLine={{ stroke: "#121212", strokeWidth: 3 }} 
-          tickLine={{ stroke: "#121212", strokeWidth: 3 }} 
+          tick={{ fontSize: 14, fill: "#2D2D2D", dy: 10 }}
+          stroke="#2D2D2D"
+          axisLine={{ stroke: "#2D2D2D", strokeWidth: 3 }} 
+          tickLine={{ stroke: "#2D2D2D", strokeWidth: 3 }} 
         />
 
         <YAxis 
           tickFormatter={formatNumber} 
-          tick={{ fontSize: 14, fill: "#121212", dx: -8 }} 
-          stroke="#121212"
-          axisLine={{ stroke: "#121212", strokeWidth: 3 }} 
-          tickLine={{ stroke: "#121212", strokeWidth: 3 }} 
+          tick={{ fontSize: 14, fill: "#2D2D2D", dx: -8 }} 
+          stroke="#2D2D2D"
+          axisLine={{ stroke: "#2D2D2D", strokeWidth: 3 }} 
+          tickLine={{ stroke: "#2D2D2D", strokeWidth: 3 }} 
         />
 
         <Tooltip content={<CustomTooltip data={chartData} />} />
