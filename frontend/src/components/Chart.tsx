@@ -1,5 +1,7 @@
 import { FunctionComponent } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from "recharts";
+
+import CustomTooltip from "./Tooltip";
 import { transformPopulationData, formatNumber, generateColorByCode } from "../utils";
 
 const PopulationChart: FunctionComponent<{ data: Population }> = ({ data }) => {
@@ -38,9 +40,9 @@ const PopulationChart: FunctionComponent<{ data: Population }> = ({ data }) => {
           tickLine={{ stroke: "#121212", strokeWidth: 3 }} 
         />
 
-        <Tooltip formatter={(val: number) => formatNumber(val)} />
+        <Tooltip content={<CustomTooltip data={chartData} />} />
 
-        <Legend wrapperStyle={{ fontSize: 16 }} />
+        <Legend wrapperStyle={{ fontSize: 16, paddingTop: 30 }} />
       </LineChart>
     </ResponsiveContainer>
   );
