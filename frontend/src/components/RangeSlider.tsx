@@ -10,7 +10,7 @@ type Props = {
 
 const RangeSlider: FunctionComponent<Props> = ({ min, max, value, onChange }) => {
   return (
-    <div className="flex items-center gap-10 w-full p-6 pt-1">
+    <div className="flex items-center gap-8 w-full p-6 pt-1">
       {/* Left input */}
       <input
         type="number"

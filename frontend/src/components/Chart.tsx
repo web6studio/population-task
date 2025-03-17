@@ -19,12 +19,19 @@ const PopulationChart: FunctionComponent<Props> = ({ data, onPointClick }) => {
         margin={{ top: 20, right: 30, left: 10, bottom: 20 }}
         onClick={(e) => {
           if (!e || !e.activePayload) return;
-          const point = e.activePayload[0];
+          
+          const year = e.activePayload[0].payload.year;
+          const payload = e.activePayload.map((point) => ({
+            dataKey: point.dataKey,
+            name: point.name,
+            value: point.value,
+            color: point.color,
+          }));
+
           onPointClick({
-            year: point.payload.year,
-            countryCode: point.dataKey,
-            countryName: point.name,
-            population: point.value,
+            year,
+            payload,
+            data: chartData,
           });
         }}
       >

@@ -10,12 +10,22 @@ declare global {
     countries: Country[];
   }
 
+  interface TransformedPopulationData {
+    year: number;
+    [countryCode: string]: number;
+  };
+
   interface SelectedPoint {
     year: number;
-    countryCode: string;
-    countryName: string;
-    population: number;
-  }
+    payload: {
+      dataKey: string;
+      name: string;
+      value: number;
+      color: string;
+    }[];
+    data: TransformedPopulationData[];
+  };
+  
 }
 
 export {};
