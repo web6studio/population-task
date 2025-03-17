@@ -3,7 +3,7 @@ import { FunctionComponent, useState, useEffect } from "react";
 type Props = {
   countries: string[];
   onChange: (selected: string[]) => void;
-}
+};
 
 // TODO: Redesign
 const CountrySelector: FunctionComponent<Props> = ({ countries, onChange }) => {
@@ -22,20 +22,22 @@ const CountrySelector: FunctionComponent<Props> = ({ countries, onChange }) => {
   };
 
   return (
-    <div className="p-4 border-r w-1/4 min-h-screen">
-      <h2 className="font-bold mb-2">Select Countries</h2>
-      <select
-        multiple
-        value={selected}
-        onChange={handleSelect}
-        className="w-full border p-2 rounded"
-      >
-        {sortedCountries.map((country) => (
-          <option key={country} value={country}>
-            {country}
-          </option>
-        ))}
-      </select>
+    <div>
+      <h2 className="text-xl font-semibold text-primary mb-4">Select Countries</h2>
+      <div className="relative">
+        <select
+          multiple
+          value={selected}
+          onChange={handleSelect}
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        >
+          {sortedCountries.map((country) => (
+            <option key={country} value={country} className="p-2">
+              {country}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 };

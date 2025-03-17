@@ -9,7 +9,7 @@ const Dashboard: FunctionComponent = () => {
   const { data, isLoading, error } = usePopulationData();
   const [selectedCountries, setSelectedCountries] = useState<string[]>(["WLD"]);
   const [yearRange, setYearRange] = useState<[number, number] | null>(null);
-  
+
   const minYear = useMemo(() => (data ? Math.min(...data.years) : 1960), [data]);
   const maxYear = useMemo(() => (data ? Math.max(...data.years) : 2023), [data]);
 
@@ -36,17 +36,23 @@ const Dashboard: FunctionComponent = () => {
     };
   }, [data, selectedCountries, yearRange]);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading data.</p>;
-  if (!data || !yearRange) return <p>No data available.</p>;
+  if (isLoading) return <p className="text-center text-lg text-primary">Loading...</p>;
+  if (error) return <p className="text-center text-lg text-red-500">Error loading data.</p>;
+  if (!data || !yearRange) return <p className="text-center text-lg text-gray-500">No data available.</p>;
 
   return (
-    <div className="flex">
-      <CountrySelector countries={data.countries.map((c) => c.code)} onChange={setSelectedCountries} />
-      <div className="flex-1 p-4">
+    <div className="flex flex-col md:flex-row min-h-screen bg-white">
+      {/* Sidebar */}
+      <aside className="w-full md:w-1/4 p-6 bg-white border-r border-gray-200 shadow-md">
+        <CountrySelector countries={data.countries.map((c) => c.code)} onChange={setSelectedCountries} />
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 p-6">
+        <h1 className="text-4xl font-bold mb-12 mt-8 m-4 uppercase">World population trends</h1>
         <PopulationChart data={filteredData} />
         <RangeSlider min={minYear} max={maxYear} value={yearRange} onChange={setYearRange} />
-      </div>
+      </main>
     </div>
   );
 };

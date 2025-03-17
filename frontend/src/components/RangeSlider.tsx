@@ -6,14 +6,24 @@ type Props = {
   max: number;
   value: [number, number];
   onChange: (value: [number, number]) => void;
-}
+};
 
-// TODO: Redesign
 const RangeSlider: FunctionComponent<Props> = ({ min, max, value, onChange }) => {
   return (
-    <div className="w-full px-4 py-2">
-      <label className="sr-only">Select year range</label>
-      <div className="relative w-full h-10 flex items-center">
+    <div className="flex items-center gap-10 w-full p-6 pt-4">
+      {/* Left input */}
+      <input
+        type="number"
+        disabled
+        value={value[0]}
+        onChange={(e) => onChange([Math.max(min, Number(e.target.value)), value[1]])}
+        className="w-20 px-3 py-2 border border-gray-300 rounded-md text-center text-sm outline-none
+                   focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all
+                   hide-arrows"
+      />
+
+      {/* Slider */}
+      <div className="flex-1">
         <Range
           step={1}
           min={min}
@@ -41,33 +51,32 @@ const RangeSlider: FunctionComponent<Props> = ({ min, max, value, onChange }) =>
           )}
           renderThumb={({ props, index }) => (
             <div
-            {...props}
+              {...props}
               key={index}
-              
               style={{
                 ...props.style,
-                height: "20px",
-                width: "20px",
+                height: "18px",
+                width: "18px",
                 borderRadius: "50%",
                 backgroundColor: "#3b82f6",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
                 boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.3)",
               }}
               className="cursor-pointer"
-            >
-              <span className="absolute -top-7 bg-white border border-gray-200 text-xs text-gray-800 py-1 px-2 rounded-md shadow">
-                {value[index]}
-              </span>
-            </div>
+            />
           )}
         />
       </div>
-      <div className="flex justify-between text-sm text-gray-700 mt-2">
-        <span>{min}</span>
-        <span>{max}</span>
-      </div>
+
+      {/* Right input */}
+      <input
+        type="number"
+        value={value[1]}
+        disabled
+        onChange={(e) => onChange([value[0], Math.min(max, Number(e.target.value))])}
+        className="w-20 px-3 py-2 border border-gray-300 rounded-md text-center text-sm outline-none
+                   focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all
+                   hide-arrows"
+      />
     </div>
   );
 };
