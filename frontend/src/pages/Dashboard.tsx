@@ -3,12 +3,13 @@ import { usePopulationData } from "../hooks/usePopulationData";
 import CountrySelector from "../components/CountrySelector";
 import PopulationChart from "../components/Chart";
 import RangeSlider from "../components/RangeSlider";
+import DetailsPanel from "../components/DetailsPanel";
 
-// TODO: Redesign
 const Dashboard: FunctionComponent = () => {
   const { data, isLoading, error } = usePopulationData();
   const [selectedCountries, setSelectedCountries] = useState<string[]>(["WLD"]);
   const [yearRange, setYearRange] = useState<[number, number] | null>(null);
+  const [selectedPoint, setSelectedPoint] = useState<SelectedPoint | null>(null);
 
   const minYear = useMemo(() => (data ? Math.min(...data.years) : 1960), [data]);
   const maxYear = useMemo(() => (data ? Math.max(...data.years) : 2023), [data]);
@@ -50,9 +51,12 @@ const Dashboard: FunctionComponent = () => {
       {/* Main Content */}
       <main className="flex-1 p-6">
         <h1 className="text-4xl font-bold mb-12 mt-8 m-4 uppercase">World population trends</h1>
-        <PopulationChart data={filteredData} />
+        <PopulationChart data={filteredData} onPointClick={setSelectedPoint} />
         <RangeSlider min={minYear} max={maxYear} value={yearRange} onChange={setYearRange} />
       </main>
+
+      {/* Details Panel */}
+      <DetailsPanel selectedPoint={selectedPoint} onClose={() => setSelectedPoint(null)} />
     </div>
   );
 };

@@ -4,12 +4,30 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, Ca
 import CustomTooltip from "./Tooltip";
 import { transformPopulationData, formatNumber, generateColorByCode } from "../utils";
 
-const PopulationChart: FunctionComponent<{ data: Population }> = ({ data }) => {
+type Props = {
+  data: Population;
+  onPointClick: (point: SelectedPoint) => void;
+};
+
+const PopulationChart: FunctionComponent<Props> = ({ data, onPointClick }) => {
   const chartData = transformPopulationData(data);
 
   return (
     <ResponsiveContainer width="100%" height={500}>
-      <LineChart data={chartData} margin={{ top: 20, right: 30, left: 10, bottom: 20 }}>
+      <LineChart
+        data={chartData}
+        margin={{ top: 20, right: 30, left: 10, bottom: 20 }}
+        onClick={(e) => {
+          if (!e || !e.activePayload) return;
+          const point = e.activePayload[0];
+          onPointClick({
+            year: point.payload.year,
+            countryCode: point.dataKey,
+            countryName: point.name,
+            population: point.value,
+          });
+        }}
+      >
         <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
 
         {data.countries.map((country) => (

@@ -9,6 +9,13 @@ declare global {
     years: number[];
     countries: Country[];
   }
+
+  interface SelectedPoint {
+    year: number;
+    countryCode: string;
+    countryName: string;
+    population: number;
+  }
 }
 
 export {};
