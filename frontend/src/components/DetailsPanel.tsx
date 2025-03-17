@@ -11,6 +11,7 @@ const DetailsPanel: FunctionComponent<Props> = ({ selectedPoint, onClose }) => {
   if (!selectedPoint || selectedPoint.payload.length === 0) return null;
 
   const year = selectedPoint.year;
+  // Used to calc growth
   const firstYearData = selectedPoint.data.find((entry) => entry.year === selectedPoint.data[0].year);
 
   return (
@@ -20,12 +21,12 @@ const DetailsPanel: FunctionComponent<Props> = ({ selectedPoint, onClose }) => {
       }`}
     >
       {/* Header */}
-        <div className="flex justify-between items-center border-b border-gray-300 bg-white p-6 sticky top-0 z-10">
+      <div className="flex justify-between items-center border-b border-gray-300 bg-white p-6 sticky top-0 z-10">
         <h2 className="text-2xl uppercase font-bold">{`Year: ${year}`}</h2>
         <button
-            className="p-2 hover:text-gray-700 hover:bg-gray-50 rounded-md transition cursor-pointer"
-            onClick={onClose}
-          >
+          className="p-2 hover:text-gray-700 hover:bg-gray-50 rounded-md transition cursor-pointer"
+          onClick={onClose}
+        >
           <X size={30} />
         </button>
       </div>

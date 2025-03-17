@@ -23,3 +23,5 @@ export const generateColorByCode = (code: string) => {
   const hue = Math.abs(hash) % 360; // Spread colors evenly around HSL color wheel
   return `hsl(${hue}, 70%, 50%)`; // High saturation and medium lightness for contrast
 };
+
+export const COLOR_BLACK = "#2D2D2D";

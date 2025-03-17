@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from "recharts";
 
 import CustomTooltip from "./Tooltip";
-import { transformPopulationData, formatNumber, generateColorByCode } from "../utils";
+import { transformPopulationData, formatNumber, generateColorByCode, COLOR_BLACK } from "../utils";
 
 type Props = {
   data: Population;
@@ -10,6 +10,7 @@ type Props = {
 };
 
 const PopulationChart: FunctionComponent<Props> = ({ data, onPointClick }) => {
+  // Population[] => TransformedPopulationData[]
   const chartData = transformPopulationData(data);
 
   return (
@@ -51,18 +52,18 @@ const PopulationChart: FunctionComponent<Props> = ({ data, onPointClick }) => {
 
         <XAxis 
           dataKey="year" 
-          tick={{ fontSize: 14, fill: "#2D2D2D", dy: 10 }}
-          stroke="#2D2D2D"
-          axisLine={{ stroke: "#2D2D2D", strokeWidth: 3 }} 
-          tickLine={{ stroke: "#2D2D2D", strokeWidth: 3 }} 
+          tick={{ fontSize: 14, fill: COLOR_BLACK, dy: 10 }}
+          stroke={COLOR_BLACK}
+          axisLine={{ stroke: COLOR_BLACK, strokeWidth: 3 }} 
+          tickLine={{ stroke: COLOR_BLACK, strokeWidth: 3 }} 
         />
 
         <YAxis 
           tickFormatter={formatNumber} 
-          tick={{ fontSize: 14, fill: "#2D2D2D", dx: -8 }} 
-          stroke="#2D2D2D"
-          axisLine={{ stroke: "#2D2D2D", strokeWidth: 3 }} 
-          tickLine={{ stroke: "#2D2D2D", strokeWidth: 3 }} 
+          tick={{ fontSize: 14, fill: COLOR_BLACK, dx: -8 }} 
+          stroke={COLOR_BLACK}
+          axisLine={{ stroke: COLOR_BLACK, strokeWidth: 3 }} 
+          tickLine={{ stroke: COLOR_BLACK, strokeWidth: 3 }} 
         />
 
         <Tooltip content={<CustomTooltip data={chartData} />} />

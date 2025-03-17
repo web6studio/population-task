@@ -4,6 +4,7 @@ const Tooltip = ({ active, payload, data }: any) => {
   if (!active || !payload || payload.length === 0 || !data) return null;
 
   const year = payload[0].payload.year;
+  // Used to calc growth
   const firstYearData = data.find((entry: any) => entry.year === data[0].year);
 
   return (

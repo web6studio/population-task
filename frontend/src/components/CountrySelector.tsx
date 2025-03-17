@@ -11,6 +11,7 @@ const CountrySelector: FunctionComponent<Props> = ({ countries, onChange }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const lastSelectedIndex = useRef<number | null>(null); // Used for a "Shift" select
 
+  // Sort WLD option to the top
   const sortedCountries = [{ code: "WLD", name: "World" }, ...countries.filter((c) => c.code !== "WLD")];
 
   const handleSelect = (event: React.MouseEvent<HTMLInputElement>, index: number, countryCode: string) => {
