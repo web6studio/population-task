@@ -44,9 +44,7 @@ const Dashboard: FunctionComponent = () => {
   return (
     <div className="flex flex-col-reverse md:flex-row md:min-h-screen bg-white">
       {/* Sidebar */}
-      <aside className="w-full md:w-1/4 p-6 bg-white border-r border-gray-200 shadow-md">
-        <CountrySelector countries={data.countries.map((c) => c.code)} onChange={setSelectedCountries} />
-      </aside>
+      <CountrySelector countries={data.countries} onChange={setSelectedCountries} />
       {/* Main Content */}
       <main className="flex-1 p-6">
         <h1 className="text-4xl font-bold mb-12 mt-8 m-4 uppercase">World population trends</h1>

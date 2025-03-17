@@ -28,4 +28,5 @@
 }
 .hide-arrows {
   -moz-appearance: textfield;
+  appearance: textfield;
 }

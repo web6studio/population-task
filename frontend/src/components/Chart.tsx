@@ -13,7 +13,7 @@ const PopulationChart: FunctionComponent<Props> = ({ data, onPointClick }) => {
   const chartData = transformPopulationData(data);
 
   return (
-    <ResponsiveContainer width="100%" height={500}>
+    <ResponsiveContainer width="100%" height={530}>
       <LineChart
         data={chartData}
         margin={{ top: 20, right: 30, left: 10, bottom: 20 }}
